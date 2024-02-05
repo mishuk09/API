@@ -85,18 +85,67 @@ app.get('/blog/blogs/:blogid', async (req, res) => {
     }
 });
 
-// Add this route to fetch blog posts by category
+// Fetch blog posts by category
 app.get('/readByCategory', async (req, res) => {
-    const category = req.query.category; // Retrieve category from query parameters
-    
+    const category = req.query.category;
+
     try {
-        const result = await BlogPost.find({ category });
-        res.json(result);
+        const blogs = await BlogPost.find({ category: category });
+        res.json(blogs);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+// Fetch blog posts by category
+// router.get('/readByCategory', async (req, res) => {
+//     const category = req.query.category;
+//     try {
+//         const blogs = await BlogPost.find({ category: category });
+//         res.json(blogs);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+// app.get('/categories', async (req, res) => {
+//     try {
+//         const categories = await BlogPost.distinct('category');
+//         res.json(categories);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+// Inside your server-side route
+app.get('/categoriesWithCount', async (req, res) => {
+    try {
+        const categoriesWithCount = await BlogPost.aggregate([
+            {
+                $group: {
+                    _id: '$category',
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    name: '$_id',
+                    count: 1
+                }
+            }
+        ]);
+        res.json(categoriesWithCount);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 
 // Update a blog post
@@ -113,14 +162,32 @@ app.patch('/update/:id', async (req, res) => {
     }
 });
 
-// Delete a blog post
+
 app.delete('/delete/:id', async (req, res) => {
     try {
         const deletedPost = await BlogPost.findByIdAndDelete(req.params.id);
+        if (!deletedPost) {
+            return res.status(404).json({ message: 'Blog post not found' });
+        }
         res.json(deletedPost);
     } catch (error) {
-        res.json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 });
+
+
+// Inside your server-side route
+app.get('/search/:query', async (req, res) => {
+    const query = req.params.query;
+    try {
+        const result = await BlogPost.find({ title: { $regex: query, $options: 'i' } });
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 module.exports = app;

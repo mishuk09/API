@@ -3,7 +3,7 @@ const axios = require('axios');
 const app = express.Router();
 
 // Endpoint to execute code on JDoodle
-app.post('/executee', async (req, res) => {
+app.post('/execute', async (req, res) => {
     try {
         // Replace 'YOUR_CLIENT_ID' and 'YOUR_CLIENT_SECRET' with your JDoodle API credentials
         const clientId = '2aa1069d39703ac85ad443a5d58de66d';
