@@ -10,7 +10,10 @@ const bodyParser = require('body-parser');
 const blogRoutes = require('../routes/blogRoutes');
 const twelveRoutes = require('../routes/twelveRoute');
 const compilerRoute = require('../routes/compilerRoute');
-// const router = require('../todos/todos.router');
+const codeforcesapi = require('../routes/CodeForcesAPI');
+const interview = require('../routes/InterviewRoutes');
+const imgpost = require('../routes/ImgPost');
+// const ImgPost = require('../models/ImgPost/ImgPost');
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URI, {
@@ -28,10 +31,9 @@ app.use(bodyParser.json());
 app.use('/blog', blogRoutes);
 app.use('/ictfirst', twelveRoutes);
 app.use('/compiler', compilerRoute);
-
-
-
-// app.use('/todos', router);
+app.use('/api', codeforcesapi);
+app.use('/img', imgpost);
+app.use('/interview', interview);
 
 
 

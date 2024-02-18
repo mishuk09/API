@@ -8,7 +8,7 @@ const blogPostSchema = new mongoose.Schema({
     photourl: String,
     date: String,
     category: String,
-    
+
 });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);

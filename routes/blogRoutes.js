@@ -3,7 +3,7 @@ const express = require('express');
 const app = express.Router();
 const BlogPost = require('../models/BlogPost');
 
-// Create a new blog post
+// Create a new blog post       
 app.post('/create', async (req, res) => {
     try {
         const newPost = new BlogPost(req.body);
