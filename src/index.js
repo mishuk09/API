@@ -13,7 +13,7 @@ const compilerRoute = require('../routes/compilerRoute');
 const codeforcesapi = require('../routes/CodeForcesAPI');
 const interview = require('../routes/InterviewRoutes');
 const imgpost = require('../routes/ImgPost');
-// const ImgPost = require('../models/ImgPost/ImgPost');
+const language = require('../routes/languageRoute');
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URI, {
@@ -34,6 +34,7 @@ app.use('/compiler', compilerRoute);
 app.use('/api', codeforcesapi);
 app.use('/img', imgpost);
 app.use('/interview', interview);
+app.use('/language', language);
 
 
 

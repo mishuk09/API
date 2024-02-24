@@ -17,7 +17,10 @@ const interviewSchema = new mongoose.Schema({
     title: String,
     content: String,
     photourl: String,
-    pdf: String,
+    pdf: {
+        data: Buffer, // Store PDF data as Buffer
+        contentType: String // Store content type of PDF
+    },
     date: String,
     childObjects: [childObjectSchema]
 });
