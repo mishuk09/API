@@ -7,13 +7,14 @@ const cors = require('cors');
 app.use(cors());
 
 const bodyParser = require('body-parser');
-const blogRoutes = require('../routes/blogRoutes');
-const twelveRoutes = require('../routes/twelveRoute');
-const compilerRoute = require('../routes/compilerRoute');
-const codeforcesapi = require('../routes/CodeForcesAPI');
-const interview = require('../routes/InterviewRoutes');
-const imgpost = require('../routes/ImgPost');
-const language = require('../routes/languageRoute');
+// const blogRoutes = require('../routes/blogRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const twelveRoutes = require('./routes/twelveRoute');
+const compilerRoute = require('./routes/compilerRoute');
+const codeforcesapi = require('./routes/CodeForcesAPI');
+const interview = require('./routes/InterviewRoutes');
+const imgpost = require('./routes/ImgPost');
+const language = require('./routes/languageRoute');
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URI, {

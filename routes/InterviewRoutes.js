@@ -46,7 +46,7 @@ app.get('/get', async (req, res) => {
         const interview = await Interview.find();
         res.json(interview);
     } catch (error) {
-        res.json({ message: error.message }); 
+        res.json({ message: error.message });
     }
 });
 
